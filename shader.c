@@ -32,6 +32,7 @@ Shader* create_shader() {
     fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragment_shader, 1, &f_shader_code, NULL);
     glCompileShader(fragment_shader);
+
     // shader program
     shader->program = glCreateProgram();
     glAttachShader(shader->program, vertex_shader);
