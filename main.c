@@ -3,12 +3,27 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <time.h>
 #include "shader.h"
-#include "image.h"
+
+#include "scene.h"
+#include "game.h"
 
 #define WIDTH 320
 #define HEIGHT 240
+
+// render pipeline in a nutshell
+// 0. load scene (everything meant to be loaded)
+//  - lights (position/direction/type)
+//  - meshes & animations (.gltf files)
+//  - sprites (.png files)
+//  - audio (.ogg files)
+// |---- per frame --------------------------------------|
+// 1. calculate physics
+// 2. generate pixel data based on current scene geometry
+//  - steps...
+// 3. render frame (Image)
+// |-----------------------------------------------------|
 
 int main(void) {
 	
@@ -17,12 +32,9 @@ int main(void) {
 		puts("Failed to initialize GLFW");
 		return -1;
 	}
-
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
 	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Tempest", NULL, NULL);
 	glfwMakeContextCurrent(window);
 	
@@ -31,33 +43,36 @@ int main(void) {
 		puts("Failed to initialize GLAD");
 		return -1;
 	}
-
 	glViewport(0, 0, WIDTH, HEIGHT);
+	glEnable( GL_BLEND );
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
 	/* generate and bind shader */
 	Shader* shader = create_shader();
 	bind_shader(shader);
 
-	/* create and fill image */
-	Image* img = create_image(WIDTH, HEIGHT);
-	for (int y = 0; y < img->height; y++) {
-		for (int x = 0; x < img->width; x++) {
-			float r = (float)x / img->width;
-			float g = (float)y / img->height;
-			Color color = { r, g, 0.0f, 1.0f };
-			put_pixel(img, x, y, color);
-		}
-	}
-	reset_image_texture(img);
+	/* initialize the game at a certain resolution */
+	Scene* scene = game_init(WIDTH, HEIGHT);
 
+	/* initialize the game settings */
+	GameSettings settings;
+	settings.paused = false;
+
+	/* initialize timers */
+	double start, stop, dt;
+	start = glfwGetTime();
+
+	/* game loop */
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 
-		/* render image onto screen */
-		glClear(GL_COLOR_BUFFER_BIT);
-		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
-		bind_image(img);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		/* update deltatime (milliseconds) */
+		stop = glfwGetTime();
+		dt = (double)(stop - start) / 1000.0;
+		start = stop;
+
+		/* game loop */
+		game_update(scene, &settings, dt);		
 
 		glfwSwapBuffers(window);
 	}
