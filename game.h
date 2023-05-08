@@ -10,7 +10,7 @@ typedef struct {
 	bool paused;
 } GameSettings;
 
-Scene* game_init(int width, int height);
+int  game_init(int width, int height);
 void game_update(Scene* scene, GameSettings* settings, double dt);
 
 void poll_input();

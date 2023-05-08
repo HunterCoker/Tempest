@@ -1,13 +1,12 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include "shader.h"
 
-#include "scene.h"
+#include "shader.h"
 #include "game.h"
+#include "scene.h"
 
 #define WIDTH 320
 #define HEIGHT 240
@@ -26,7 +25,6 @@
 // |-----------------------------------------------------|
 
 int main(void) {
-	
 	/* initialize glfw and create window */
 	if (!glfwInit()) {
 		puts("Failed to initialize GLFW");
@@ -51,12 +49,12 @@ int main(void) {
 	Shader* shader = create_shader();
 	bind_shader(shader);
 
-	/* initialize the game at a certain resolution */
-	Scene* scene = game_init(WIDTH, HEIGHT);
-
 	/* initialize the game settings */
 	GameSettings settings;
 	settings.paused = false;
+
+	/* load main menu scene */
+	Scene* scene = load_scene("main_menu.yaml");
 
 	/* initialize timers */
 	double start, stop, dt;
@@ -64,6 +62,7 @@ int main(void) {
 
 	/* game loop */
 	while (!glfwWindowShouldClose(window)) {
+		/* poll for window events */
 		glfwPollEvents();
 
 		/* update deltatime (milliseconds) */
@@ -71,7 +70,7 @@ int main(void) {
 		dt = (double)(stop - start) / 1000.0;
 		start = stop;
 
-		/* game loop */
+		/* update game */
 		game_update(scene, &settings, dt);		
 
 		glfwSwapBuffers(window);
