@@ -8,6 +8,7 @@ target_link_libraries(${PROJECT_NAME}
 	PRIVATE glfw)
 
 target_include_directories(${PROJECT_NAME}
+	PUBLIC ./vendor/cgltf/include
 	PUBLIC ./vendor/cglm/include
 	PUBLIC ./vendor/glad/include
 	PUBLIC ./vendor/glfw/include)
