@@ -8,8 +8,8 @@
 #include "game.h"
 #include "scene.h"
 
-#define WIDTH 320
-#define HEIGHT 240
+#define WIDTH 1280 // internal resolution is:
+#define HEIGHT 720 // 320x240px
 
 // render pipeline in a nutshell
 // 0. load scene (everything meant to be loaded)

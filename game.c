@@ -16,6 +16,8 @@ void game_update(Scene* scene, GameSettings* settings, double dt) {
 		return;
 	
 	// poll for input
+	move_camera_to_position(scene->active_camera, (vec3){ 0.0f, 2.0f, 5.0f });
+	move_camera(scene->active_camera, (vec3){ 1.0f, 0.0f, 0.0f }, cos(time));
 
 	// update oscillating movement using 'total_time'
 	

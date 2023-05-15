@@ -2,6 +2,9 @@
 #define SCENE_H
 
 #include "image.h"
+#include "camera.h"
+
+#define MAX_LINES 100
 
 typedef struct {
 	bool orthographic;
@@ -9,6 +12,7 @@ typedef struct {
 
 typedef struct {
 	Image* image;
+	Camera* active_camera;
 	SceneSettings settings;
 } Scene;
 
