@@ -191,7 +191,7 @@ bool barycentric_coordinates(ivec2 v1, ivec2 v2, ivec2 v3, int x, int y, int* u1
 void draw_filled_triangle(Image* img, vec3 v1, vec3 v2, vec3 v3, Color color) {
 	// convert normalized device coordinates into pixel coordinates
 	ivec2 p1, p2, p3;
-	ndc_to_pixel_triangle(img, v1, v2, v3, p1, p2, p3);
+	// ndc_to_pixel_triangle(img, v1, v2, v3, p1, p2, p3);
 
 	// cull triangle if backfacing
 	// int sum = 0;

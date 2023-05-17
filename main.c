@@ -55,7 +55,7 @@ int main(void) {
 
 	/* load main menu scene */
 	Scene* scene = load_scene("main_menu.yaml");
-
+	
 	/* initialize timers */
 	double start, stop, dt;
 	start = glfwGetTime();
