@@ -30,8 +30,8 @@ int main(void) {
 		puts("Failed to initialize GLFW");
 		return -1;
 	}
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Tempest", NULL, NULL);
 	glfwMakeContextCurrent(window);
@@ -41,7 +41,6 @@ int main(void) {
 		puts("Failed to initialize GLAD");
 		return -1;
 	}
-	glViewport(0, 0, WIDTH, HEIGHT);
 	glEnable( GL_BLEND );
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
@@ -64,7 +63,7 @@ int main(void) {
 	while (!glfwWindowShouldClose(window)) {
 		/* poll for window events */
 		glfwPollEvents();
-
+	
 		/* update deltatime (milliseconds) */
 		stop = glfwGetTime();
 		dt = (double)(stop - start) / 1000.0;

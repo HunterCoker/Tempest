@@ -15,7 +15,7 @@ Image* create_image(int width, int height);
 void bind_image(Image* img);
 
 /* image utility functions */
-void set_image_data(Image* img, const void* data);
+void set_image_data(Image* img, void* data);
 void reset_image_texture(Image* img);
 
 #endif

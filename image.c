@@ -2,8 +2,6 @@
 
 #include <stdlib.h>
 
-
-/* implementations */
 Image* create_image(int width, int height) {
 	Image* img = malloc(sizeof(Image));
 	img->width = width;
@@ -17,9 +15,9 @@ Image* create_image(int width, int height) {
 	// generate texture to visualize data
 	glGenTextures(1, &img->texture);
 	glBindTexture(GL_TEXTURE_2D, img->texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
 	
 	return img;
 }

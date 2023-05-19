@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 const char* v_shader_code =
-	"#version 460 core\n"
+	"#version 330 core\n"
 	"out vec2 texcoord;\n"
 	"void main()\n"
 	"{\n"
@@ -12,7 +12,7 @@ const char* v_shader_code =
 	"	texcoord = 0.5 * gl_Position.xy + vec2(0.5);\n"
 	"}\0";
 const char* f_shader_code =
-	"#version 460 core\n"
+	"#version 330 core\n"
 	"out vec4 outcolor;\n"
 	"in vec2 texcoord;\n"
 	"uniform sampler2D sampler;\n"
